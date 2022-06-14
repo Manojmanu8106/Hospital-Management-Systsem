@@ -1,0 +1,119 @@
+<div class="container">
+  <div *ngIf="loading" class="centering">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div class="card w-75" *ngIf="!loading">
+    <div class="card-body">
+      <h1 class="card-title">Update Doctor Details</h1>
+      <div>
+        <form [formGroup]="idForm" (ngSubmit)="onSubmit()">
+          <div class="mt-2">
+            <select class="form-select mt-2" formControlName="doctor">
+              <!-- <option selected>Select the Doctor</option> -->
+              <option
+                *ngFor="let doctor of doctors; let i = index"
+                [ngValue]="doctor"
+              >
+                {{ doctor.name }}
+              </option>
+            </select>
+          </div>
+
+          <div class="mt-2">
+            <input
+              type="submit"
+              class="btn btn-primary"
+              value="check For Doctor"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mx-5 my-5" *ngIf="!loading">
+  <div *ngIf="enable" class="mx-5 my-5">
+    <form [formGroup]="doctorForm" (ngSubmit)="onSubmission()">
+      <div class="mt-2">
+        <label for="name" class="label">Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-control"
+          required
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors['required']" class="text text-danger">
+            Name is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-2">
+        <label for="age" class="label">Age</label>
+        <input
+          id="age"
+          type="number"
+          formControlName="age"
+          class="form-control"
+          required
+        />
+        <div *ngIf="age.invalid && (age.dirty || age.touched)">
+          <div *ngIf="age.errors['required']" class="text text-danger">
+            Age is required.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2 form-inline">
+        <input
+          id="male"
+          type="radio"
+          name="gender"
+          value="male"
+          formControlName="gender"
+          class="mx-2"
+        />
+        <label class="label">Male</label>
+        <input
+          id="female"
+          type="radio"
+          name="gender"
+          value="female"
+          formControlName="gender"
+          class="mx-2"
+        />
+        <label class="label">Female</label>
+      </div>
+      <div class="mt-2">
+        <label for="specialization" class="label">Specialization</label>
+        <input
+          id="specialization"
+          type="text"
+          formControlName="specialization"
+          class="form-control"
+          required
+        />
+        <div
+          *ngIf="
+            specialization.invalid &&
+            (specialization.dirty || specialization.touched)
+          "
+        >
+          <div
+            *ngIf="specialization.errors['required']"
+            class="text text-danger"
+          >
+            Specialization is required.
+          </div>
+        </div>
+      </div>
+      <div class="mt-2">
+        <input type="submit" class="btn btn-primary" value="Add" />
+      </div>
+    </form>
+  </div>
+</div>

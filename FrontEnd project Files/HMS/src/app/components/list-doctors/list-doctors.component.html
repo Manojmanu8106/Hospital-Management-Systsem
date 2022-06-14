@@ -1,0 +1,44 @@
+<div class="container">
+  <div *ngIf="loading" class="centering">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="!loading">
+    <div class="mt-2">
+      <h2>Please select a Doctor</h2>
+      <select class="form-select mt-2" [(ngModel)]="selectedDoctor">
+        <option
+          *ngFor="let doctor of doctors; let i = index"
+          [ngValue]="doctor"
+        >
+          {{ doctor.name }}
+        </option>
+      </select>
+    </div>
+    <div class="mt-5" *ngIf="selectedDoctor">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Age</th>
+            <th scope="col">Gender</th>
+            <th scope="col">Specialization</th>
+            <th scope="col">Patients Attended</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">{{ selectedDoctor.id }}</th>
+            <td>{{ selectedDoctor.name }}</td>
+            <td>{{ selectedDoctor.age }}</td>
+            <td>{{ selectedDoctor.gender }}</td>
+            <td>{{ selectedDoctor.specialization }}</td>
+            <td>{{ selectedDoctor.numberOfPatientsAttended }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

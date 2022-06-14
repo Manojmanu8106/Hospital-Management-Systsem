@@ -1,0 +1,96 @@
+<div class="container">
+  <div *ngIf="loading" class="centering">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+  <div class="card w-75" *ngIf="!loading">
+    <div class="card-body">
+      <h1 class="card-title">Update Patient Details</h1>
+      <div>
+        <form [formGroup]="idForm" (ngSubmit)="onSubmit()">
+          <div class="mt-2">
+            <label for="id" class="label">ID</label>
+            <input
+              id="id"
+              type="number"
+              formControlName="id"
+              class="form-control"
+            />
+            <div *ngIf="id.invalid && (id.dirty || id.touched)">
+              <div *ngIf="id.errors['required']" class="text text-danger">
+                Id is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-2">
+            <input
+              type="submit"
+              class="btn btn-primary"
+              value="check For Patient"
+            />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mx-5 my-5" *ngIf="!loading">
+  <div *ngIf="error" class="mt-5">
+    <h4>No such Patient in Database!!!!</h4>
+  </div>
+  <div *ngIf="!error && enable" class="mx-5 my-5">
+    <form [formGroup]="patientForm" (ngSubmit)="onSubmission()">
+      <div class="mt-2">
+        <label for="name" class="label">Name</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          class="form-control"
+        />
+        <div *ngIf="name.invalid && (name.dirty || name.touched)">
+          <div *ngIf="name.errors['required']" class="text text-danger">
+            Name is required.
+          </div>
+        </div>
+        <div>
+          <label for="prescription" class="label">Prescription</label>
+          <input
+            id="prescription"
+            type="text"
+            formControlName="prescription"
+            class="form-control"
+          />
+          <div
+            *ngIf="
+              prescription.invalid &&
+              (prescription.dirty || prescription.touched)
+            "
+          >
+            <div
+              *ngIf="prescription.errors['required']"
+              class="text text-danger"
+            >
+              Prescription is required.
+            </div>
+          </div>
+        </div>
+        <select class="form-select mt-2" formControlName="doctor">
+          <!-- <option selected>Select the Doctor</option> -->
+          <option
+            *ngFor="let doctor of doctors; let i = index"
+            [ngValue]="doctor"
+          >
+            {{ doctor.name }}
+          </option>
+        </select>
+      </div>
+      <div class="mt-2">
+        <input type="submit" class="btn btn-primary" value="Update" />
+      </div>
+    </form>
+  </div>
+</div>

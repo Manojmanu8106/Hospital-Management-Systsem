@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="card w-75" *ngIf="!loading">
+    <div class="card-body">
+      <h1 class="card-title">Add Patient Details</h1>
+      <div>
+        <form [formGroup]="patientForm" (ngSubmit)="onSubmit()">
+          <div class="mt-2">
+            <label for="name" class="label">Name</label>
+            <input
+              id="name"
+              type="text"
+              formControlName="name"
+              class="form-control"
+            />
+            <div *ngIf="name.invalid && (name.dirty || name.touched)">
+              <div *ngIf="name.errors['required']" class="text text-danger">
+                Name is required.
+              </div>
+            </div>
+            <select class="form-select mt-2" formControlName="doctor">
+              <!-- <option selected>Select the Doctor</option> -->
+              <option
+                *ngFor="let doctor of doctors; let i = index"
+                [ngValue]="doctor"
+              >
+                {{ doctor.name }}
+              </option>
+            </select>
+          </div>
+          <div class="mt-2">
+            <input type="submit" class="btn btn-primary" value="Add" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="centering">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+</div>
